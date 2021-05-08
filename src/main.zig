@@ -137,16 +137,16 @@ test "CRAX-S test" {
     const in64: u64 = 0x0123456789abcdef;
     const e64 = CraxS.encrypt64(in64, k);
     const d64 = CraxS.decrypt64(e64, k);
-    testing.expectEqual(e64, 0x5bcff61869b506ac);
-    testing.expectEqual(d64, in64);
+    try testing.expectEqual(e64, 0x5bcff61869b506ac);
+    try testing.expectEqual(d64, in64);
 
     const in32 = [2]u32{ 0x123456, 0xabcdef };
     const e32 = CraxS.encrypt32(in32, k);
     const d32 = CraxS.decrypt32(e32, k);
-    testing.expectEqual(d32, in32);
+    try testing.expectEqual(d32, in32);
 
     const m = "12345678".*;
     const em = CraxS.encrypt(m, k);
     const de = CraxS.decrypt(em, k);
-    testing.expectEqual(de, m);
+    try testing.expectEqual(de, m);
 }
