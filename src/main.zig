@@ -24,7 +24,7 @@ pub const CraxS = struct {
     };
 
     /// Apply the Alzette box
-    pub fn alzette(x: *u32, y: *u32, comptime c: u32) callconv(.Inline) void {
+    pub inline fn alzette(x: *u32, y: *u32, comptime c: u32) void {
         x.* +%= rotr(u32, y.*, 31);
         y.* +%= rotr(u32, x.*, 24);
         x.* ^= c;
@@ -40,7 +40,7 @@ pub const CraxS = struct {
     }
 
     /// Apply the inverse Alzette box
-    pub fn alzetteInv(x: *u32, y: *u32, comptime c: u32) callconv(.Inline) void {
+    pub inline fn alzetteInv(x: *u32, y: *u32, comptime c: u32) void {
         x.* ^= c;
         y.* -%= rotr(u32, x.*, 16);
         x.* -%= rotr(u32, y.*, 24);
