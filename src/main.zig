@@ -80,16 +80,16 @@ pub const CraxS = struct {
 
     /// Encrypt a 64-bit value using a key k
     pub fn encrypt64(in: u64, k: Key) u64 {
-        var x = @truncate(u32, in);
-        var y = @truncate(u32, in >> 32);
+        var x: u32 = @truncate(in);
+        var y: u32 = @truncate(in >> 32);
         _encrypt(&x, &y, k);
         return @as(u64, x) | (@as(u64, y) << 32);
     }
 
     /// Decrypt a 64-bit value using a key k
     pub fn decrypt64(in: u64, k: Key) u64 {
-        var x = @truncate(u32, in);
-        var y = @truncate(u32, in >> 32);
+        var x: u32 = @truncate(in);
+        var y: u32 = @truncate(in >> 32);
         _decrypt(&x, &y, k);
         return @as(u64, x) | (@as(u64, y) << 32);
     }
