@@ -14,10 +14,10 @@ pub const CraxS = struct {
         pub fn init(bytes: [16]u8) Key {
             return Key{
                 .w = [4]u32{
-                    mem.readIntLittle(u32, bytes[0..4]),
-                    mem.readIntLittle(u32, bytes[4..8]),
-                    mem.readIntLittle(u32, bytes[8..12]),
-                    mem.readIntLittle(u32, bytes[12..16]),
+                    mem.readInt(u32, bytes[0..4], .little),
+                    mem.readInt(u32, bytes[4..8], .little),
+                    mem.readInt(u32, bytes[8..12], .little),
+                    mem.readInt(u32, bytes[12..16], .little),
                 },
             };
         }
@@ -110,23 +110,23 @@ pub const CraxS = struct {
 
     /// Encrypt 8 bytes using a key k
     pub fn encrypt(in: [8]u8, k: Key) [8]u8 {
-        var x = mem.readIntLittle(u32, in[0..4]);
-        var y = mem.readIntLittle(u32, in[4..8]);
+        var x = mem.readInt(u32, in[0..4], .little);
+        var y = mem.readInt(u32, in[4..8], .little);
         _encrypt(&x, &y, k);
         var out: [8]u8 = undefined;
-        mem.writeIntLittle(u32, out[0..4], x);
-        mem.writeIntLittle(u32, out[4..8], y);
+        mem.writeInt(u32, out[0..4], x, .little);
+        mem.writeInt(u32, out[4..8], y, .little);
         return out;
     }
 
     /// Decrypt 8 bytes using a key k
     pub fn decrypt(in: [8]u8, k: Key) [8]u8 {
-        var x = mem.readIntLittle(u32, in[0..4]);
-        var y = mem.readIntLittle(u32, in[4..8]);
+        var x = mem.readInt(u32, in[0..4], .little);
+        var y = mem.readInt(u32, in[4..8], .little);
         _decrypt(&x, &y, k);
         var out: [8]u8 = undefined;
-        mem.writeIntLittle(u32, out[0..4], x);
-        mem.writeIntLittle(u32, out[4..8], y);
+        mem.writeInt(u32, out[0..4], x, .little);
+        mem.writeInt(u32, out[4..8], y, .little);
         return out;
     }
 };
